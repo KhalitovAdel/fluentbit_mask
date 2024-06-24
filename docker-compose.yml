@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  fluent-bit:
+    image: fluent/fluent-bit
+    volumes:
+      - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+      - logs:/tmp
+      - out:/out
+  app:
+    image: nginx
+    volumes:
+     - logs:/tmp
+     - out:/out
+
+volumes:
+  logs:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+  out:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
